@@ -1,5 +1,5 @@
 .body {
-    width: 400px;
+    min-width: 300px;
     height: 98vh;
     margin-top: 6px;
     border: 1px solid white;

@@ -17,12 +17,12 @@ const Todo = () => {
                 height: '60px',
                 display: 'flex',
                 alignItems: 'center',
-                padding: '0 10px',
+                padding: '0 5px',
                 margin: '5px 0',
             },
             task: {
                 width: '100%',
-                margin: '0 5px',
+                // margin: '0 5px',
             }
 
         }),
@@ -57,12 +57,12 @@ const Todo = () => {
                 </Typography>
             </div>
             <IconButton aria-label='add' color='primary'
-                // size='small'
+                size='small'
             >
                 <EditIcon />
             </IconButton>
             <IconButton aria-label='add' color='secondary'
-                // size='small'
+                size='small'
             >
                 <RemoveIcon />
             </IconButton>

@@ -14,7 +14,7 @@ function TodoApp() {
                 variant="h4"
                 component="h1"
                 style={{
-                    margin: '20px 0 10px',
+                    margin: '10px 0 10px',
                     textAlign: 'center'
                 }}
             >
