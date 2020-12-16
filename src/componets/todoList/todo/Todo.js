@@ -1,67 +1,69 @@
 import React, {useState} from 'react'
-import {  createStyles, makeStyles } from '@material-ui/core/styles';
 import {
     Paper,
     Checkbox,
     Typography,
     IconButton,
+    TextField,
 } from '@material-ui/core';
 import EditIcon from '@material-ui/icons/Edit';
 import RemoveIcon from '@material-ui/icons/Remove';
+import './todo.css'
 
 
 const Todo = () => {
-    const useStyles = makeStyles((theme) =>
-        createStyles({
-            paper: {
-                height: '60px',
-                display: 'flex',
-                alignItems: 'center',
-                padding: '0 5px',
-                margin: '5px 0',
-            },
-            task: {
-                width: '100%',
-                // margin: '0 5px',
-            }
-
-        }),
-    );
-
-    const classes = useStyles();
 
     const [checked, setChecked] = useState(false)
-    const handleChange = (e) => {
+    const handleChecked = (e) => {
         setChecked(!checked)
+        setEdit(false)
+    }
+
+    const [edit, setEdit] = useState(false)
+    const handleEdit = () => {
+        setEdit(!edit)
+    }
+
+    const classesArray = [];
+    if (checked) {
+        classesArray.push('taskDone');
     }
 
     return (
-        <Paper className={classes.paper}>
+        <Paper className='paper'>
             <Checkbox
                 checked={checked}
-                onChange={handleChange}
+                onChange={handleChecked}
                 color="primary"
             />
-            <div className={classes.task} >
-                <Typography
-                    variant="h6"
-                    component="p"
-                >
-                    My todo task
-                </Typography>
-                <Typography
-                    variant="subtitle2"
-                    component="p"
-                >
-                    Complete before: Date
-                </Typography>
+            <div className='task' >
+                {
+                    edit ?
+                        <TextField
+                            value={'My todo task'}
+                        /> :
+                        <Typography
+                            variant="h6"
+                            component="p"
+                            className='taskDone'
+                            className={classesArray.join(' ')}
+                        >
+                            My todo task
+                        </Typography>
+                }
             </div>
-            <IconButton aria-label='add' color='primary'
+            <IconButton
+                aria-label='edit'
+                color='primary'
                 size='small'
+                onClick={handleEdit}
+                disabled={checked}
             >
                 <EditIcon />
             </IconButton>
-            <IconButton aria-label='add' color='secondary'
+            <IconButton
+                aria-label='remove'
+                color='secondary'
                 size='small'
             >
                 <RemoveIcon />

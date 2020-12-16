@@ -2,6 +2,6 @@
     /* border: 1px solid; */
     margin-top: 10px;
     padding: 5px;
-    height: 75vh;
+    max-height: 77vh;
     overflow: auto;
 }

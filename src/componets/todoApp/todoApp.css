@@ -1,8 +1,8 @@
 .body {
-    min-width: 300px;
+    width: 300px;
     height: 98vh;
     margin-top: 6px;
-    border: 1px solid white;
+    border: 1px solid black;
     border-radius: 5px;
     background-color: whitesmoke;
     padding: 0 5px;

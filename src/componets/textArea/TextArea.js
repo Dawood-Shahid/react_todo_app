@@ -1,5 +1,6 @@
-import React from 'react'
+import React from 'react';
 import {
+    createStyles,
     makeStyles,
     TextField,
     IconButton,
@@ -8,41 +9,33 @@ import AddIcon from '@material-ui/icons/Add';
 import DeleteIcon from '@material-ui/icons/Delete';
 
 function TextArea() {
-    const useStyles = makeStyles((theme) => ({
-        root: {
-            '& > *': {
-                margin: theme.spacing(1),
-                // border:'1px solid red'
+    const useStyles = makeStyles((theme) =>
+        createStyles({
+            textArea: {
+                width: '300px',
+                alignItems: 'center',
+                justifyItems:'center',
+                padding: '5px',
+                display: 'flex',
+                margin: '0 auto',
+                // border:'1px solid'
             },
-            width: '100%',
-            paddingRight: '10px',
-            // border: '1px solid',
-            // minWidth: '400px'
-        },
-        textArea: {
-            // backgroundColor: 'whiteSmoke',
-            // border: '1px solid',
-            display: 'flex',
-            alignItems: 'center',
-            padding: '0 5px'
-        },
-    }));
+        }),
+    );
 
     const classes = useStyles();
 
     return (
-        <div className={classes.textArea}>
-            <form className={classes.root} noValidate autoComplete="off">
-                <TextField fullWidth='true' label="Write your todo" />
+            <form className={classes.textArea} noValidate autoComplete="off">
+                <TextField fullWidth={true} label="Write your todo" />
+                <IconButton aria-label='add' color='primary'>
+                    <AddIcon />
+                </IconButton>
+                <IconButton aria-label='delete' color='secondary'>
+                    <DeleteIcon fontSize="small" />
+                </IconButton>
             </form>
-            <IconButton aria-label='add' color='primary'>
-                <AddIcon />
-            </IconButton>
-            <IconButton aria-label='delete' color='secondary'>
-                <DeleteIcon fontSize="small" />
-            </IconButton>
-        </div>
-    )
+    );
 }
 
-export default TextArea
+export default TextArea;
