@@ -1,7 +1,7 @@
 import firebaseDB from 'firebase'
 
 var firebaseConfig = {
-    apiKey: "AIzaSyDW8atDnZctKEuoR_0VgWCYex-sCLBVqD4",
+    apiKey: `${process.env.REACT_APP_API_KEY}`,
     authDomain: "webmobilehybridapp.firebaseapp.com",
     databaseURL: "https://webmobilehybridapp.firebaseio.com",
     projectId: "webmobilehybridapp",
