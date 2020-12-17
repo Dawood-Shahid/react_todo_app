@@ -11,11 +11,13 @@ import RemoveIcon from '@material-ui/icons/Remove';
 import './todo.css'
 
 
-const Todo = ({todo}) => {
+const Todo = ({ todo }) => {
+    
+    // console.log(todo)
 
-    useEffect(() => {
-        console.log('todo component')
-    })
+    // useEffect(() => {
+    //     console.log('todo component')
+    // })
 
     const [checked, setChecked] = useState(todo.isComplete)
     const handleChecked = (e) => {

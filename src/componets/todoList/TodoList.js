@@ -9,14 +9,17 @@ import './todoList.css';
 
 function TodoList() {
 
-    useEffect(() => {
-        console.log('Todo List');
-    });
-
+    
     const todoContext = useContext(TodoContext);
     const {
-        todos
+        todos,
+        getData,
     } = todoContext;
+    
+    useEffect(() => {
+        // console.log('Todo App')
+        // getData();
+    })
 
     const todosArray = Object.keys(todos);
 
@@ -25,9 +28,10 @@ function TodoList() {
             {
                 todosArray.length >= 1 ?
                     todosArray.map(todo => {
+                        // console.log( todos[todo])
                         return (
-                            <Todo key={todos[todo].key} todo={todos[todo]} />
-                        );
+                            <Todo key={todo} todo={todos[todo]} />
+                        )
                     }) :
                     <Paper className='paper'>
                         <Typography

@@ -11,9 +11,9 @@ import TodoContext from '../../context/todoContext/TodoContext';
 
 function TextArea() {
     
-    useEffect(() => {
-        console.log('Text Area')    
-    })
+    // useEffect(() => {
+    //     console.log('Text Area')    
+    // })
 
     const todoContext = useContext(TodoContext);
     const {

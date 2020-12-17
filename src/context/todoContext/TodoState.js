@@ -1,50 +1,66 @@
-import React, { useReducer } from 'react'
+import React, { useReducer } from 'react';
 import TodoContext from './TodoContext';
 import TodoReducer from './TodoReducer';
-import Firebase from '../../dbConfig/Firebase'
+import Firebase from '../../dbConfig/Firebase';
 import {
-    ADD_TODO
-} from '../type'
+    GET_DATA,
+    ADD_TODO,
+} from '../type';
 
 const TodoState = (props) => {
 
     const initialState = {
         todos: {},
-    }
+    };
 
     const [state, dispatch] = useReducer(TodoReducer, initialState);
 
+    const getData = async () => {
+        let todo;
+        let todos;
+        await Firebase.database().ref('todo-app/todos').once('value')
+            .then(data => {
+                return (
+                    todo = data.val()
+                );
+            })
+            .catch(err => {
+                console.log(err);
+            });
+
+        todos = { ...state.todos, ...todo };
+        dispatch({ type: GET_DATA, payload: todos });
+    };
+
     const addTodo = (text) => {
         let key = Firebase.database().ref('todo-app/').push().key;
-        console.log(key)
+        console.log(key);
 
         const todo = {
             text: text,
             isComplete: false,
             key: key,
-        }
+        };
 
-        let todos = { ...state.todos }
-        todos = {...todos, [key]:todo}
-        // todoObj = {
-        //     ...todos,
-        //     [key]: todo
-        // }
-        Firebase.database().ref('todo-app/todos/').set(todos)
+        let todos = { ...state.todos };
+        todos = { ...todos, [key]: todo };
 
-        dispatch({ type: ADD_TODO, payload: todos })
-    }
+        Firebase.database().ref('todo-app/todos/').set(todos);
+
+        dispatch({ type: ADD_TODO, payload: todos });
+    };
 
     return (
         <TodoContext.Provider
             value={{
                 todos: state.todos,
+                getData,
                 addTodo,
             }}
         >
             {props.children}
         </TodoContext.Provider>
-    )
-}
+    );
+};
 
-export default TodoState
+export default TodoState;
