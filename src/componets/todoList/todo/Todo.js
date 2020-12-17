@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import {
     Paper,
     Checkbox,
@@ -11,9 +11,13 @@ import RemoveIcon from '@material-ui/icons/Remove';
 import './todo.css'
 
 
-const Todo = () => {
+const Todo = ({todo}) => {
 
-    const [checked, setChecked] = useState(false)
+    useEffect(() => {
+        console.log('todo component')
+    })
+
+    const [checked, setChecked] = useState(todo.isComplete)
     const handleChecked = (e) => {
         setChecked(!checked)
         setEdit(false)
@@ -40,15 +44,15 @@ const Todo = () => {
                 {
                     edit ?
                         <TextField
-                            value={'My todo task'}
+                            value={todo.text}
                         /> :
                         <Typography
-                            variant="h6"
+                            variant="p"
                             component="p"
                             className='taskDone'
                             className={classesArray.join(' ')}
                         >
-                            My todo task
+                            {todo.text}
                         </Typography>
                 }
             </div>
