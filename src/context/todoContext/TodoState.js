@@ -5,6 +5,7 @@ import Firebase from '../../dbConfig/Firebase';
 import {
     GET_DATA,
     ADD_TODO,
+    TASK_COMPLETE,
 } from '../type';
 
 const TodoState = (props) => {
@@ -34,7 +35,7 @@ const TodoState = (props) => {
 
     const addTodo = (text) => {
         let key = Firebase.database().ref('todo-app/').push().key;
-        console.log(key);
+        // console.log(key);
 
         const todo = {
             text: text,
@@ -45,10 +46,27 @@ const TodoState = (props) => {
         let todos = { ...state.todos };
         todos = { ...todos, [key]: todo };
 
-        Firebase.database().ref('todo-app/todos/').set(todos);
+        Firebase.database().ref('todo-app/todos/').set(todos)
+            .then(res => {
+                // console.log(res)
+            })
+            .catch(err => {
+                console.log(err)
+            });
 
         dispatch({ type: ADD_TODO, payload: todos });
     };
+
+    const taskAction = (data) => {
+        // console.log(data)
+        Firebase.database().ref(`todo-app/todos/${data.key}`).set(data)
+            .then(res => {
+                console.log(res)
+            })
+            .catch(err => {
+                console.log(err);
+            });
+    }
 
     return (
         <TodoContext.Provider
@@ -56,6 +74,7 @@ const TodoState = (props) => {
                 todos: state.todos,
                 getData,
                 addTodo,
+                taskAction,
             }}
         >
             {props.children}

@@ -1,6 +1,7 @@
 import {
     GET_DATA,
     ADD_TODO,
+    TASK_COMPLETE,
 } from '../type'
 
 export default (state, action) => {

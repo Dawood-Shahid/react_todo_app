@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react'
+import React, { useContext, useEffect, useState } from 'react';
 import {
     Paper,
     Checkbox,
@@ -8,27 +8,53 @@ import {
 } from '@material-ui/core';
 import EditIcon from '@material-ui/icons/Edit';
 import RemoveIcon from '@material-ui/icons/Remove';
-import './todo.css'
+import './todo.css';
+import TodoContext from '../../../context/todoContext/TodoContext';
 
 
 const Todo = ({ todo }) => {
+
+    const todoContext = useContext(TodoContext);
+    const {
+        taskAction
+    } = todoContext;
+
+    const [checked, setChecked] = useState(todo.isComplete);
+    const checkedHandler = (e) => {
+        setChecked(!checked);
+        setEdit(false);
+
+        const task = {
+            key: todo.key,
+            isComplete: !todo.isComplete,
+            text: todoText
+        };
+
+        taskAction(task);
+    };
+
+    const [todoText, setTodoText] = useState(todo.text);
+    const editTextHandle = (e) => {
+        e.preventDefault();
+        console.log(e.target.value);
+        setTodoText(e.target.value);
+    };
+
+    const [edit, setEdit] = useState(false);
+    const editFlagHandle = () => {
+        setEdit(!edit);
+
+        if (edit === true) {
+            const task = {
+                key: todo.key,
+                isComplete: todo.isComplete,
+                text: todoText
+            };
     
-    // console.log(todo)
-
-    // useEffect(() => {
-    //     console.log('todo component')
-    // })
-
-    const [checked, setChecked] = useState(todo.isComplete)
-    const handleChecked = (e) => {
-        setChecked(!checked)
-        setEdit(false)
-    }
-
-    const [edit, setEdit] = useState(false)
-    const handleEdit = () => {
-        setEdit(!edit)
-    }
+            taskAction(task);
+        }
+        // console.log();
+    };
 
     const classesArray = [];
     if (checked) {
@@ -39,14 +65,15 @@ const Todo = ({ todo }) => {
         <Paper className='paper'>
             <Checkbox
                 checked={checked}
-                onChange={handleChecked}
+                onChange={checkedHandler}
                 color="primary"
             />
             <div className='task' >
                 {
                     edit ?
                         <TextField
-                            value={todo.text}
+                            value={todoText}
+                            onChange={editTextHandle}
                         /> :
                         <Typography
                             variant="p"
@@ -54,7 +81,7 @@ const Todo = ({ todo }) => {
                             className='taskDone'
                             className={classesArray.join(' ')}
                         >
-                            {todo.text}
+                            {todoText}
                         </Typography>
                 }
             </div>
@@ -62,7 +89,7 @@ const Todo = ({ todo }) => {
                 aria-label='edit'
                 color='primary'
                 size='small'
-                onClick={handleEdit}
+                onClick={editFlagHandle}
                 disabled={checked}
             >
                 <EditIcon />
@@ -76,6 +103,6 @@ const Todo = ({ todo }) => {
             </IconButton>
         </Paper>
     );
-}
+};
 
-export default Todo
+export default Todo;
