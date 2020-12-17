@@ -11,13 +11,10 @@ import TodoContext from '../../context/todoContext/TodoContext';
 
 function TextArea() {
     
-    // useEffect(() => {
-    //     console.log('Text Area')    
-    // })
-
     const todoContext = useContext(TodoContext);
     const {
-        addTodo
+        addTodo,
+        removeTaskList
     } = todoContext;
 
     const [todoText, setTodoText] = useState('');
@@ -73,7 +70,11 @@ function TextArea() {
             >
                 <AddIcon />
             </IconButton>
-            <IconButton aria-label='delete' color='secondary'>
+            <IconButton
+                aria-label='delete'
+                color='secondary'
+                onClick={removeTaskList}
+            >
                 <DeleteIcon fontSize="small" />
             </IconButton>
         </form>

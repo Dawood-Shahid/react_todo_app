@@ -6,6 +6,7 @@ import {
     GET_DATA,
     ADD_TODO,
     TASK_REMOVE,
+    TASK_LIST_REMOVE
 } from '../type';
 
 const TodoState = (props) => {
@@ -58,7 +59,6 @@ const TodoState = (props) => {
     };
 
     const taskAction = (data) => {
-        // console.log(data)
         Firebase.database().ref(`todo-app/todos/${data.key}`).set(data)
             .then(res => {
                 // console.log(res)
@@ -69,20 +69,31 @@ const TodoState = (props) => {
     }
 
     const removeTask = (key) => {
-        // console.log(key)
         const todos = { ...state.todos }
         delete todos[key]
 
         Firebase.database().ref(`todo-app/todos`).set(todos)
             .then(res => {
-                // console.log(res)
             })
             .catch(err => {
                 console.log(err);
             });
 
         dispatch({ type: TASK_REMOVE, payload: todos })
-        // console.log(todos)
+    }
+
+    const removeTaskList = () => {
+        const todos = {};
+
+        Firebase.database().ref(`todo-app/todos`).remove()
+            .then(res => {
+                console.log(res)
+            })
+            .catch(err => {
+                console.log(err);
+            });
+
+        dispatch({ type: TASK_LIST_REMOVE, payload: todos})
     }
 
     return (
@@ -93,6 +104,7 @@ const TodoState = (props) => {
                 addTodo,
                 taskAction,
                 removeTask,
+                removeTaskList
             }}
         >
             {props.children}
