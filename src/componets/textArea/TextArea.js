@@ -28,9 +28,13 @@ function TextArea() {
     
     const addTodoHandler = (e) => {
         e.preventDefault();
-        addTodo(todoText);
-        setTodoText('');
 
+        if (todoText.length >= 3) {
+            // console.log('addTodo trigered')
+            addTodo(todoText)
+        }
+
+        setTodoText('');
     }
 
     const useStyles = makeStyles((theme) =>
@@ -65,6 +69,7 @@ function TextArea() {
                 aria-label='add'
                 color='primary'
                 onClick={addTodoHandler}
+                disabled={todoText.length <= 3}
             >
                 <AddIcon />
             </IconButton>

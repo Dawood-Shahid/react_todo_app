@@ -1,7 +1,7 @@
 import {
     GET_DATA,
     ADD_TODO,
-    TASK_COMPLETE,
+    TASK_REMOVE,
 } from '../type'
 
 export default (state, action) => {
@@ -12,6 +12,11 @@ export default (state, action) => {
                 todos: action.payload
             }
         case ADD_TODO:
+            return {
+                ...state,
+                todos: action.payload
+            }
+        case TASK_REMOVE:
             return {
                 ...state,
                 todos: action.payload

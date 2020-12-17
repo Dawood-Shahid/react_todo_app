@@ -5,7 +5,7 @@ import Firebase from '../../dbConfig/Firebase';
 import {
     GET_DATA,
     ADD_TODO,
-    TASK_COMPLETE,
+    TASK_REMOVE,
 } from '../type';
 
 const TodoState = (props) => {
@@ -61,11 +61,28 @@ const TodoState = (props) => {
         // console.log(data)
         Firebase.database().ref(`todo-app/todos/${data.key}`).set(data)
             .then(res => {
-                console.log(res)
+                // console.log(res)
             })
             .catch(err => {
                 console.log(err);
             });
+    }
+
+    const removeTask = (key) => {
+        // console.log(key)
+        const todos = { ...state.todos }
+        delete todos[key]
+
+        Firebase.database().ref(`todo-app/todos`).set(todos)
+            .then(res => {
+                // console.log(res)
+            })
+            .catch(err => {
+                console.log(err);
+            });
+
+        dispatch({ type: TASK_REMOVE, payload: todos })
+        // console.log(todos)
     }
 
     return (
@@ -75,6 +92,7 @@ const TodoState = (props) => {
                 getData,
                 addTodo,
                 taskAction,
+                removeTask,
             }}
         >
             {props.children}

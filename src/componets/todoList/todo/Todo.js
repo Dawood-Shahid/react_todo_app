@@ -16,7 +16,8 @@ const Todo = ({ todo }) => {
 
     const todoContext = useContext(TodoContext);
     const {
-        taskAction
+        taskAction,
+        removeTask
     } = todoContext;
 
     const [checked, setChecked] = useState(todo.isComplete);
@@ -34,20 +35,19 @@ const Todo = ({ todo }) => {
     };
 
     const [todoText, setTodoText] = useState(todo.text);
-    const editTextHandle = (e) => {
+    const editTextHandler = (e) => {
         e.preventDefault();
-        console.log(e.target.value);
         setTodoText(e.target.value);
     };
 
     const [edit, setEdit] = useState(false);
-    const editFlagHandle = () => {
+    const editFlagHandler = () => {
         setEdit(!edit);
 
         if (edit === true) {
             const task = {
                 key: todo.key,
-                isComplete: todo.isComplete,
+                isComplete: false,
                 text: todoText
             };
     
@@ -55,6 +55,10 @@ const Todo = ({ todo }) => {
         }
         // console.log();
     };
+
+    const removeTaskHandler = () => {
+        removeTask(todo.key);
+    }
 
     const classesArray = [];
     if (checked) {
@@ -73,7 +77,7 @@ const Todo = ({ todo }) => {
                     edit ?
                         <TextField
                             value={todoText}
-                            onChange={editTextHandle}
+                            onChange={editTextHandler}
                         /> :
                         <Typography
                             variant="p"
@@ -89,7 +93,7 @@ const Todo = ({ todo }) => {
                 aria-label='edit'
                 color='primary'
                 size='small'
-                onClick={editFlagHandle}
+                onClick={editFlagHandler}
                 disabled={checked}
             >
                 <EditIcon />
@@ -98,6 +102,7 @@ const Todo = ({ todo }) => {
                 aria-label='remove'
                 color='secondary'
                 size='small'
+                onClick={removeTaskHandler}
             >
                 <RemoveIcon />
             </IconButton>
