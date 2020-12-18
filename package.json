@@ -1,6 +1,6 @@
 {
-  "Homeoage": "https://Dawood-Shahid.github.io/react_todo_app",
-  "name": "todo-app",
+  "homepage": "https://Dawood-Shahid.github.io/react_todo_app",
+  "name": "react_todo_app",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
